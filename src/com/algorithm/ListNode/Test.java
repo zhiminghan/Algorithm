@@ -71,25 +71,11 @@ public class Test {
 
         ListNode n3=new ListNode(3);
 
-        //ListNode n4=new ListNode(5);
-        head.next=n1;
-        n1.next=n2;
-        n2.next=n3;
-        //n3.next=n4;
-        //reverseBetween(head,2,4);
-        printListNode(insertionSortList(head));
+        ListNode n4=new ListNode(5);
+        head.next=null;
 
-        isPalindrome("avb");
-        Integer a=null;
-        int b=256;
+        printListNode(removeNthFromEnd(head,1));
 
-        System.out.println(a==b);
-
-//        System.out.println("打印链表");
-//        printListNode(head);
-//        printListNode(reverse(head));
-
-       // printListNode(deleteDuplicates2(head));
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -267,9 +253,27 @@ public class Test {
         }
         return sb.toString().equalsIgnoreCase(rb.toString());
 
-
-
-
-
     }
+
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode first=head;
+        ListNode second=head;
+        for(int i=1;i<=n;i++){
+            second=second.next;
+        }
+
+        ListNode prev=null;
+        while (second!=null){
+            prev=first;
+            first=first.next;
+            second=second.next;
+        }
+
+       if (prev==null) return head.next;
+
+       prev.next=first.next;
+
+       return head;
+    }
+
 }

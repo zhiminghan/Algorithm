@@ -307,6 +307,71 @@ public class Test {
 
     }
 
+    /**
+     * 求三数之和 使用双指针
+     * @param nums
+     * @return
+     */
+
+    public static List<List<Integer>> threeSum(int[] nums) {
+
+        Arrays.sort(nums);
+        List<List<Integer>> targetList=new ArrayList<>();
+        for (int k=0;k<nums.length-2;k++){
+            if(k>0&&nums[k]==nums[k-1]) continue;
+            int target=-nums[k];
+            int i=k+1;
+            int j=nums.length-1;
+            while(i<j){
+                int sum=nums[i]+nums[j];
+                if(sum<target){
+                    while (i<j&&nums[i++]==nums[i]);
+                }else if(sum>target){
+                    while (i<j&&nums[j--]==nums[i]);
+                }else {
+                    List<Integer> list=new ArrayList<>(Arrays.asList(nums[k],nums[i],nums[j]));
+                    targetList.add(list);
+                    while (i<j&&nums[i++]==nums[i]);
+                    while (i<j&&nums[j--]==nums[i]);
+                }
+            }
+        }
+        return targetList;
+    }
+
+    /**
+     * 求四数之和 使用双指针 思想与求三数之和相同 难点在于去重
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> targetList=new ArrayList<>();
+        for (int m=0;m<nums.length-3;m++){
+            if(m>0&&nums[m]==nums[m-1]) continue;
+            for (int n=m+1;n<nums.length-2;n++) {
+                if(n>m+1&&nums[n]==nums[n-1]) continue;
+                int anotherSum =target-(nums[m] + nums[n]);
+                int i = n + 1;
+                int j = nums.length - 1;
+                while (i < j) {
+                    int sum = nums[i] + nums[j];
+                    if (sum < anotherSum) {
+                        while (i < j && nums[i++] == nums[i]) ;
+                    } else if (sum > anotherSum) {
+                        while (i < j && nums[j--] == nums[i]) ;
+                    } else {
+                        List<Integer> list = new ArrayList<>(Arrays.asList(nums[m],nums[n],nums[i], nums[j]));
+                        targetList.add(list);
+                        while (i < j && nums[i++] == nums[i]) ;
+                        while (i < j && nums[j--] == nums[i]) ;
+                    }
+                }
+            }
+        }
+        return targetList;
+    }
+
 
 
     public static void main(String[] args) {
@@ -326,6 +391,10 @@ public class Test {
         head.next=second;
 
         System.out.println(detectCycle(head));
+
+
+        System.out.println(fourSum(new int[]{-1,0,1,2,-1,-4},-1));
+
 
     }
 
