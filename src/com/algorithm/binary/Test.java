@@ -4,55 +4,34 @@ public class Test {
 
 
     public static void main(String[] args) {
-        new Test().search(new int[]{3,5,1
-
-        },1);
+        System.out.println(mySqrt(2147395599));
     }
 
-    public int search(int[] nums, int target) {
-        if(nums==null||nums.length==0)
-            return -1;
-        int left=0;
-        int right=nums.length-1;
-        int n=getRotateIndex(nums,left,right);
-        if(n>=0){
-            if(target>=nums[left]){
-                right=n;
-            }else{
-                left=n+1;
-            }
-        }
+    /**
+     * 通过二分查找求平方根  （思想：在所有正整数里二分查找）
+     * @param x
+     * @return
+     */
+    public static int mySqrt(int x) {
 
-        while(left<=right){
-            int mid=(left+right)/2;
-            if(nums[mid]==target){
-                return mid;
-            }else if(nums[mid]<target){
-                left=mid+1;
-            }else{
+        long left=0;
+        long right=x;
+
+        while (left<=right){
+            long mid=(left+right)/2;
+
+            long value=mid*mid;
+            if(value==x){
+                return (int)mid;
+            }else if(value>x){
                 right=mid-1;
+            }else{
+                left=mid+1;
             }
         }
-        return -1;
 
-
+        return left*left>x?(int)left-1:(int)left;
     }
 
-    public int getRotateIndex(int[] nums, int left,int right) {
-
-        if(nums.length==2){
-            if(nums[0]>nums[1]){
-                return 0;
-            }
-        }
-
-        for(int i=1;i<nums.length-1;i++){
-            if(nums[i]>nums[i-1]&&nums[i]>nums[i+1]){
-                return i-1;
-            }
-        }
-        return -1;
-
-    }
 
 }
